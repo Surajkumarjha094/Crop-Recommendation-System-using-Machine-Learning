@@ -7,7 +7,7 @@ import os
 from ml_service import ml_service
 
 # Initialize the Flask app and enable CORS for React development
-app = Flask(__name__, static_folder='dist', static_url_path='')
+app = Flask(__name__)
 CORS(app)
 
 # Set secret key for JWT tokens
@@ -244,29 +244,9 @@ def get_dashboard_data():
         'history': sensor_history[-50:]  # Send the last 50 readings for charts
     })
 
-# --- Routes for Serving the React Application ---
-
-@app.route('/')
-def serve_react_app():
-    """Serves the main index.html file of the React application."""
-    return send_from_directory(app.static_folder, 'index.html')
-
-@app.route('/<path:path>')
-def catch_all(path):
-    """
-    This catch-all route ensures that refreshing on any page (e.g., /charts)
-    within your React app works correctly by always serving the main index.html.
-    React Router will then handle displaying the correct component.
-    """
-    return send_from_directory(app.static_folder, 'index.html')
-
 # --- Main Execution ---
 
 if __name__ == '__main__':
-    print("Flask server starting...")
-    print(" - Serving React app from the 'dist' folder.")
-    print(" - ESP32 should POST data to: http://<your_ip_address>:5000/data")
-    print(" - React app will fetch from: http://<your_ip_address>:5000/api/dashboard-data")
     # Set host='0.0.0.0' to make the server accessible on your local network
     app.run(host='0.0.0.0', port=5000, debug=True)
 

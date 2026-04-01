@@ -1,20 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    },
-    {
-      "src": "app.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "app.py" },
-    { "src": "/predict", "dest": "app.py" },
-    { "src": "/data", "dest": "app.py" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/app.py" },
+    { "source": "/predict", "destination": "/app.py" },
+    { "source": "/data", "destination": "/app.py" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
