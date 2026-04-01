@@ -44,7 +44,7 @@ coverage.xml
 .hypothesis
 
 # ML models and data
-*.pkl
+# *.pkl (Removing this to allow pushing models to GitHub for Vercel)
 *.ntvs*
 *.njsproj
 *.sln
