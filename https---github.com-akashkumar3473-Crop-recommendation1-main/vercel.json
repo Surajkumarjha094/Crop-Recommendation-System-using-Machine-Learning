@@ -1,35 +1,20 @@
 {
   "version": 2,
-  "framework": "vite",
-  "functions": {
-    "app.py": {
-      "runtime": "@vercel/python"
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "app.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "app.py"
-    },
-    {
-      "src": "/predict",
-      "dest": "app.py"
-    },
-    {
-      "src": "/data",
-      "dest": "app.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1",
-      "continue": true
-    },
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "app.py" },
+    { "src": "/predict", "dest": "app.py" },
+    { "src": "/data", "dest": "app.py" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
